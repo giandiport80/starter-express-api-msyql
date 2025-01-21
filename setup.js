@@ -53,6 +53,20 @@ function addScriptsToPackageJson() {
   }
 }
 
+function copyEnvFile() {
+  const sourcePath = path.join(process.cwd(), 'env.example');
+  const destPath = path.join(process.cwd(), '.env');
+
+  if (fs.existsSync(sourcePath)) {
+    const envContent = fs.readFileSync(sourcePath, 'utf8');
+
+    fs.writeFileSync(destPath, envContent, 'utf8');
+    console.log('.env file has been copied from env.example');
+  } else {
+    console.error('env.example file not found.');
+  }
+}
+
 async function setup() {
   try {
     const packageJsonPath = path.join(process.cwd(), 'package.json');
@@ -84,6 +98,7 @@ async function setup() {
     }
 
     addScriptsToPackageJson();
+    copyEnvFile();
   } catch (error) {
     console.error('Setup failed:', error);
   }

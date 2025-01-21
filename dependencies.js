@@ -18,5 +18,5 @@ module.exports = dependencies = {
     'sequelize-cli',
     'mysql2',
   ],
-  dev_package: ['nodemon'],
+  dev_package: ['nodemon', 'supertest'],
 };
