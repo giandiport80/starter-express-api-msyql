@@ -18,11 +18,19 @@ router.post('/auth/login', AuthController.login);
 router.post('/auth/logout', AuthController.logout);
 router.post('/auth/refresh-token', AuthController.refreshToken);
 
-router.get('/users', UserController.index);
-router.post('/users', UserController.store);
-router.get('/users/:id', UserController.show);
-router.put('/users/:id', UserController.update);
-router.delete('/users/:id', UserController.delete);
+helper.routeGroup(
+  router,
+  {
+    middleware: [AuthMiddleware],
+  },
+  function (router) {
+    router.get('/users', UserController.index);
+    router.post('/users', UserController.store);
+    router.get('/users/:id', UserController.show);
+    router.put('/users/:id', UserController.update);
+    router.delete('/users/:id', UserController.delete);
+  }
+);
 
 router.use('/posts', AuthMiddleware);
 router.get('/posts', PostController.index);
