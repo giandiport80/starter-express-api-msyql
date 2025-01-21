@@ -43,8 +43,12 @@ function addScriptsToPackageJson() {
     packageJson.scripts.migrate = 'npx sequelize-cli db:migrate';
     packageJson.scripts['migrate:rollback'] =
       'npx sequelize-cli db:migrate:undo';
+    packageJson.scripts['"migrate:fresh'] =
+      'npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate';
     packageJson.scripts['make:migration'] =
       'npx sequelize-cli migration:generate --name';
+    packageJson.scripts['make:make:seeder'] =
+      'npx sequelize-cli seed:generate --name';
 
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
     console.log('Scripts added to package.json');

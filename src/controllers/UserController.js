@@ -118,7 +118,7 @@ const UserController = {
 
       res.status(200).json({
         success: true,
-        message: 'Data berhasil diperbarui',
+        message: 'Data berhasil disimpan',
         data: user,
       });
     } catch (error) {

@@ -32,10 +32,22 @@ Accept: application/json
   "password": "123456"
 }
 
+### UPDATE USER
+PUT http://localhost:3000/api/users/2
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Arhan update",
+  "username": "arhan",
+  "email": "arhan@gmail.com",
+  "password": "123456"
+}
+
 ### FIND USER BY ID
 GET http://localhost:3000/api/users/1
 Accept: application/json
 
 ### DELETE USER
-DELETE http://localhost:3000/api/users/22
+DELETE http://localhost:3000/api/users/1
 Accept: application/json
