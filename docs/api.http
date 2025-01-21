@@ -33,7 +33,7 @@ Accept: application/json
 }
 
 ### FIND USER BY ID
-GET http://localhost:3000/api/users/39
+GET http://localhost:3000/api/users/1
 Accept: application/json
 
 ### DELETE USER
