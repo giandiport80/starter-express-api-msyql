@@ -39,6 +39,7 @@ function addScriptsToPackageJson() {
 
     packageJson.scripts.start = 'node index.js';
     packageJson.scripts.dev = 'nodemon index.js';
+    packageJson.scripts.test = 'jest';
 
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
     console.log('Scripts added to package.json');

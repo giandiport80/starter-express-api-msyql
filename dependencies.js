@@ -16,7 +16,6 @@ module.exports = dependencies = {
     'moment',
     'sequelize',
     'mysql2',
-    // 'mongoose',
   ],
-  dev_package: ['nodemon', 'jest', 'supertest'],
+  dev_package: ['nodemon'],
 };

@@ -7,6 +7,13 @@ const AuthController = require('../controllers/AuthController');
 const PostController = require('../controllers/PostController');
 const UserController = require('../controllers/UserController');
 
+router.get('/hello', function (req, res) {
+  res.status(200).json({
+    success: true,
+    message: 'Hello world',
+  });
+});
+
 router.post('/auth/login', AuthController.login);
 router.post('/auth/logout', AuthController.logout);
 router.post('/auth/refresh-token', AuthController.refreshToken);
