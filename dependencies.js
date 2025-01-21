@@ -1,0 +1,22 @@
+module.exports = dependencies = {
+  package: [
+    'express',
+    'dotenv',
+    'zod',
+    'validatorjs',
+    'jsonwebtoken',
+    'multer',
+    'helmet',
+    'morgan',
+    'cookie-parser',
+    'bcryptjs',
+    'express-fileupload',
+    'winston',
+    'date-fns',
+    'moment',
+    'sequelize',
+    'mysql2',
+    // 'mongoose',
+  ],
+  dev_package: ['nodemon', 'jest', 'supertest'],
+};

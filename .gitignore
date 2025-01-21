@@ -1,0 +1,6 @@
+.env
+
+/src/logs/*
+!src/logs/
+
+/public/uploads
