@@ -1,13 +1,7 @@
-# STARTER EXPRESS JS API
-
-Starter express js API
+# STARTER EXPRESS JS API MYSQL
 
 ### Installation
-1. buat project/folder baru, kemudian copy semua folder & file `starter-exressjs-api-sequelize`
-
-2. jalankan perintah `npm init -y`
-
-3. install package yang dibutuhkan
-```bash
-npm install express sequelize mysql2 dotenv zod validator jsonwebtoken multer helmet morgan cookie-parser && npm install --save-dev nodemon
-```
+1. Download atau clone repo ini
+2. Jalankan perintah `node setup.js`
+3. Ketikkan perintah `npm run dev`
+4. Aplikasi siap dijalankan

@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "migrate": "npx sequelize-cli db:migrate",
-    "undo-migrate": "npx sequelize-cli db:migrate:undo",
-    "create-migration": "npx sequelize-cli migration:generate --name",
+    "migrate:rollback": "npx sequelize-cli db:migrate:undo",
+    "make:migration": "npx sequelize-cli migration:generate --name",
     "test": "jest",
     "start": "node index.js",
     "dev": "nodemon index.js"

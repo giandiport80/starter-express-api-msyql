@@ -40,6 +40,11 @@ function addScriptsToPackageJson() {
     packageJson.scripts.start = 'node index.js';
     packageJson.scripts.dev = 'nodemon index.js';
     packageJson.scripts.test = 'jest';
+    packageJson.scripts.migrate = 'npx sequelize-cli db:migrate';
+    packageJson.scripts['migrate:rollback'] =
+      'npx sequelize-cli db:migrate:undo';
+    packageJson.scripts['make:migration'] =
+      'npx sequelize-cli migration:generate --name';
 
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
     console.log('Scripts added to package.json');
