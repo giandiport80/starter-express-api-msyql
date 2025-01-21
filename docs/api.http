@@ -1,0 +1,41 @@
+### 
+GET http://localhost:3000/api/hello
+
+### LOGIN USER
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "gian123",
+  "password": "123456"
+}
+
+
+### LOGOUT USER
+POST http://localhost:3000/api/auth/logout
+
+
+### GET LIST USER
+GET http://localhost:3000/api/users
+Accept: application/json
+
+### CREATE USER
+POST http://localhost:3000/api/users
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Arhan",
+  "username": "arhan",
+  "email": "arhan@gmail.com",
+  "password": "123456"
+}
+
+### FIND USER BY ID
+GET http://localhost:3000/api/users/39
+Accept: application/json
+
+### DELETE USER
+DELETE http://localhost:3000/api/users/22
+Accept: application/json

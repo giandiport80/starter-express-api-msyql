@@ -15,6 +15,7 @@ module.exports = dependencies = {
     'date-fns',
     'moment',
     'sequelize',
+    'sequelize-cli',
     'mysql2',
   ],
   dev_package: ['nodemon'],
