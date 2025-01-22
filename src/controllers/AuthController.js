@@ -2,9 +2,12 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const jwtConfig = require('../config/jwtConfig');
 const User = require('../models/User');
+const Validator = require('validatorjs');
+Validator.useLang('id');
+const logger = require('../config/logger');
 
 const AuthController = {
-  login: async (req, res) => {
+  async login(req, res) {
     const { username, password } = req.body;
 
     if (!username || !password) {
@@ -71,7 +74,52 @@ const AuthController = {
     }
   },
 
-  refreshToken: async (req, res) => {
+  async register(req, res) {
+    try {
+      const validator = validateRequest(req.body);
+      const { name, username, email, password } = req.body;
+
+      if (validator.fails()) {
+        return res.status(400).json({
+          success: false,
+          message: 'Periksa kembali inputan anda',
+          errors: validator.errors,
+        });
+      }
+
+      const userExist = await User.findOne({ where: { username } });
+      if (userExist) {
+        const message = 'User sudah ada';
+        const error = new Error(message);
+        error.code = 400;
+
+        logger.error(message);
+        throw error;
+      }
+
+      const hashedPassword = bcrypt.hashSync(password);
+      const user = await User.create({
+        name,
+        username,
+        email,
+        password: hashedPassword,
+      });
+
+      res.status(201).json({
+        success: true,
+        message: 'Data berhasil disimpan',
+        data: user,
+      });
+    } catch (error) {
+      let code = error.code || 500;
+      res.status(code).json({
+        success: false,
+        message: error.message || 'Terjadi kesalahan',
+      });
+    }
+  },
+
+  async refreshToken(req, res) {
     const { refreshToken } = req.cookies;
 
     if (!refreshToken) {
@@ -103,7 +151,7 @@ const AuthController = {
     }
   },
 
-  logout: async (req, res) => {
+  async logout(req, res) {
     const refreshToken = req.cookies?.refreshToken;
 
     try {
@@ -133,5 +181,28 @@ const AuthController = {
     }
   },
 };
+
+function validateRequest(request, id = null) {
+  let rules = {
+    name: ['required', 'min:3'],
+    username: ['required', 'min:3'],
+    email: ['required', 'min:6', 'email'],
+    password: ['required', 'min:6'],
+  };
+
+  if (id) {
+    //
+  }
+
+  const validator = new Validator(request, rules);
+  validator.setAttributeNames({
+    name: 'Nama',
+    username: 'Username',
+    email: 'Email',
+    password: 'Kata Sandi',
+  });
+
+  return validator;
+}
 
 module.exports = AuthController;

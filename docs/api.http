@@ -1,6 +1,19 @@
 ### 
 GET http://localhost:3000/api/hello
 
+
+### REGISTER USER
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Giandev",
+  "username": "gian123",
+  "email": "gian123@gmail.com",
+  "password": "123456"
+}
+
 ### LOGIN USER
 POST http://localhost:3000/api/auth/login
 Content-Type: application/json
