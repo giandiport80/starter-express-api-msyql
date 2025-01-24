@@ -1,8 +1,7 @@
 const User = require('../models/User'); // Import model User
 const bcrypt = require('bcryptjs');
-const Validator = require('validatorjs');
-Validator.useLang('id');
 const logger = require('../config/logger');
+const { validateRequest } = require('../helpers');
 
 const UserController = {
   // INDEX: Menampilkan semua user
@@ -26,8 +25,13 @@ const UserController = {
   // STORE: Menambahkan user baru
   async store(req, res) {
     try {
-      const validator = validateRequest(req.body);
-      const { name, username, email, password } = req.body;
+      const validator = validateRequest(req.body, {
+        name: ['required', 'min:3'],
+        username: ['required', 'min:3'],
+        email: ['required', 'min:6', 'email'],
+        password: ['required', 'min:6'],
+        no_telp: ['numeric', 'min:10'],
+      });
 
       if (validator.fails()) {
         return res.status(400).json({
@@ -36,6 +40,8 @@ const UserController = {
           errors: validator.errors,
         });
       }
+
+      const { name, username, email, password, no_telp = null } = req.body;
 
       const userExist = await User.findOne({ where: { username } });
       if (userExist) {
@@ -53,6 +59,7 @@ const UserController = {
         username,
         email,
         password: hashedPassword,
+        no_telp,
       });
 
       res.status(201).json({
@@ -156,28 +163,4 @@ const UserController = {
     }
   },
 };
-
-function validateRequest(request, id = null) {
-  let rules = {
-    name: ['required', 'min:3'],
-    username: ['required', 'min:3'],
-    email: ['required', 'min:6', 'email'],
-    password: ['required', 'min:6'],
-  };
-
-  if (id) {
-    //
-  }
-
-  const validator = new Validator(request, rules);
-  validator.setAttributeNames({
-    name: 'Nama',
-    username: 'Username',
-    email: 'Email',
-    password: 'Kata Sandi',
-  });
-
-  return validator;
-}
-
 module.exports = UserController;
